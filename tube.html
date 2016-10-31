@@ -5,35 +5,91 @@
 	<link rel="stylesheet" type="text/css" href="tube.css">
 </head>
 <body>
-<div id="tubes">
+<div id="tubes" class="content">
 	<div class="row">
-		<div class="tube">A</div>
-		<div class="tube">B</div>
-		<div class="tube">C</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
 	</div>
 	<div class="clearb"></div>
 	<div class="row">
-		<div class="tube">A</div>
-		<div class="tube">B</div>
-		<div class="tube">C</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
 	</div>
 	<div class="clearb"></div>
 	<div class="row">
-		<div class="tube">A</div>
-		<div class="tube">B</div>
-		<div class="tube">C</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+	</div>
+	<div class="clearb"></div>
+	<div class="row">
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
+		<div class="tube">a</div>
 	</div>
 </div>
 </body>
 <script type="text/javascript" src="https://www.qiniu.com/wp-content/themes/Earthshaker-1/js/jquery.js"></script>
 
 <script type="text/javascript">
+	var start = false;
+	var pre = null;
+	for(i in document.images){
+		document.images[i].ondragstart=function() {
+			return false;
+		};
+	}
     $(".tube").each(function(){
-		console.log(this);
-		$(this).bind("click",function(){
-			$(this).addClass("holder");
+		var nowObj = $(this);
+		nowObj.bind("selectstart",function(){return false;}); 
+		nowObj.mousedown(function() {
+			start = true;
+			nowObj.addClass("holdOn");
 		});
-    	
+		nowObj.bind("mouseover",function(){
+				console.log(nowObj.css("background-color"));
+			if (start) {
+				if (nowObj.css("background-color")=="rgb(0, 0, 255)") {
+					errorWay(nowObj);
+					$(pre).css("background-color","green");
+				}else{
+					nowObj.addClass("holdOn");
+				}
+			}
+		});
+		nowObj.mouseleave(function() {
+			pre = nowObj;
+			nowObj.css("background-color","blue");
+		});
+    	nowObj.mouseup(function (argument) {
+    		start = false;
+    		setTimeout(function() {
+    			
+    		},200);
+    		upHoldOnAll();
+    	});
 	});
+	function upHoldOnAll(argument) {
+		$(".tube").each(function(){
+			$(this).removeClass("holdOn");
+			$(this).removeClass("errorWay");
+			$(this).css("background-color","");
+		});
+	}
+	function errorWay(nowObj) {
+		$(nowObj).css("background-color","red");
+		// setTimeout(function () {
+		// 	$(nowObj).css("background-color","green");
+		// },1000);
+	}
+	function holdOn(nowObj) {
+		$(nowObj).addClass("holdOn");
+	}
 </script>
 </html>
