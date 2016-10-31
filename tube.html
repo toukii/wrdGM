@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>word-game</title>
+	<link rel="stylesheet" type="text/css" href="tube.css">
+</head>
+<body>
+<div id="tubes">
+	<div class="row">
+		<div class="tube">A</div>
+		<div class="tube">B</div>
+		<div class="tube">C</div>
+	</div>
+	<div class="clearb"></div>
+	<div class="row">
+		<div class="tube">A</div>
+		<div class="tube">B</div>
+		<div class="tube">C</div>
+	</div>
+	<div class="clearb"></div>
+	<div class="row">
+		<div class="tube">A</div>
+		<div class="tube">B</div>
+		<div class="tube">C</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="https://www.qiniu.com/wp-content/themes/Earthshaker-1/js/jquery.js"></script>
+
+<script type="text/javascript">
+    $(".tube").each(function(){
+		console.log(this);
+		$(this).bind("click",function(){
+			$(this).addClass("holder");
+		});
+    	
+	});
+</script>
+</html>

@@ -1,0 +1,46 @@
+div{
+	border-width: 2px;
+	border-style: solid;
+}
+.clearb{
+	clear: both;
+}
+.header{
+	position: relative;
+	border-color: blue;
+	height: 60px;
+}
+#logo{
+	position: absolute;
+}
+#user:hover{
+	background-color: black;
+}
+#user{
+	position: absolute;
+	top: 37px;
+	right: 1px;
+	align:right;
+}
+.content{
+	position: relative;
+	height: 550px;
+	border-color: red;
+}
+#left{
+	position: absolute;
+	width: 68%;
+	height: 550px;
+}
+#right{
+	/*left: 60%;*/
+	width: 30%;
+	/*padding: 0px;*/
+	right: 2px;
+	position: absolute;
+	height: 550px;
+}
+.footer{
+	border-color: green;
+	height: 60px;
+}
