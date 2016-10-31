@@ -45,6 +45,11 @@
 			return false;
 		};
 	}
+	$(".content").bind("selectstart",function(){return false;}); 
+	$(".content").mouseup(function() {
+    		start = false;
+    		upHoldOnAll();
+    });
     $(".tube").each(function(){
 		var nowObj = $(this);
 		nowObj.bind("selectstart",function(){return false;}); 
@@ -64,14 +69,16 @@
 			}
 		});
 		nowObj.mouseleave(function() {
+			if (start) {
 			pre = nowObj;
 			nowObj.css("background-color","blue");
+			}
 		});
     	nowObj.mouseup(function (argument) {
     		start = false;
-    		setTimeout(function() {
+    		// setTimeout(function() {
     			
-    		},200);
+    		// },200);
     		upHoldOnAll();
     	});
 	});
