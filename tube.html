@@ -47,8 +47,8 @@
 	}
 	$(".content").bind("selectstart",function(){return false;}); 
 	$(".content").mouseup(function() {
-    		start = false;
-    		upHoldOnAll();
+    	start = false;
+    	upHoldOnAll();
     });
     $(".tube").each(function(){
 		var nowObj = $(this);
@@ -58,7 +58,6 @@
 			nowObj.addClass("holdOn");
 		});
 		nowObj.bind("mouseover",function(){
-				console.log(nowObj.css("background-color"));
 			if (start) {
 				if (nowObj.css("background-color")=="rgb(0, 0, 255)") {
 					errorWay(nowObj);
@@ -70,8 +69,8 @@
 		});
 		nowObj.mouseleave(function() {
 			if (start) {
-			pre = nowObj;
-			nowObj.css("background-color","blue");
+				pre = nowObj;
+				nowObj.css("background-color","blue");
 			}
 		});
     	nowObj.mouseup(function (argument) {
