@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="word.css">
 </head>
 <body>
+<div id="word"></div>
 <div id="tubes" class="content">
 	<div class="row">
 		<div class="tube"><font>A</font></div>
@@ -40,6 +41,7 @@
 <script type="text/javascript">
 	var start = false;
 	var pre = null;
+	var word = "";
 	for(i in document.images){
 		document.images[i].ondragstart=function() {
 			return false;
@@ -50,6 +52,9 @@
     // 一次提交
 	$("html").mouseup(function() {
     	start = false;
+		$("#word").text(word);
+		console.log("html:"+word);
+		word = "";
     	unHoldOnAll();
     });
 
@@ -83,12 +88,17 @@
 				nowObj.css("background-color","#C3BED4");
 				nowObj.children("font").removeClass("fontHover");
 				nowObj.children("font").addClass("fontHoldOn");
+				word += nowObj.children("font").text();
 			}
 		});
 		// 一次提交
     	nowObj.mouseup(function (argument) {
     		start = false;
-    		unHoldOnAll();
+    		word += nowObj.children("font").text();
+    		// $("#word").text(word);
+    		// console.log("tube:"+word);
+    		// word = "";
+    		// unHoldOnAll();
     	});
 	});
 	// 一次提交的效果
