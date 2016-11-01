@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>word-game</title>
+	<link rel="stylesheet" type="text/css" href="word.css">
+</head>
+<body>
+<div id="tubes" class="content">
+	<div class="row">
+		<div class="tube"><font>A</font></div>
+		<div class="tube"><font>a</font></div>
+		<div class="tube"><font>e</font></div>
+		<div class="tube"><font>H</font></div>
+	</div>
+	<div class="clearb"></div>
+	<div class="row">
+		<div class="tube"><font>m</font></div>
+		<div class="tube"><font>V</font></div>
+		<div class="tube"><font>t</font></div>
+		<div class="tube"><font>Y</font></div>
+	</div>
+	<div class="clearb"></div>
+	<div class="row">
+		<div class="tube"><font>u</font></div>
+		<div class="tube"><font>I</font></div>
+		<div class="tube"><font>O</font></div>
+		<div class="tube"><font>q</font></div>
+	</div>
+	<div class="clearb"></div>
+	<div class="row">
+		<div class="tube"><font>l</font></div>
+		<div class="tube"><font>X</font></div>
+		<div class="tube"><font>z</font></div>
+		<div class="tube"><font>K</font></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="https://www.qiniu.com/wp-content/themes/Earthshaker-1/js/jquery.js"></script>
+
+<script type="text/javascript">
+	var start = false;
+	var pre = null;
+	for(i in document.images){
+		document.images[i].ondragstart=function() {
+			return false;
+		};
+	}
+	// 防止复制
+    $("html").bind("selectstart",function(){return false;}); 
+    // 一次提交
+	$("html").mouseup(function() {
+    	start = false;
+    	unHoldOnAll();
+    });
+
+    $(".tube").each(function(){
+		var nowObj = $(this);
+		// 防止复制
+		nowObj.bind("selectstart",function(){return false;}); 
+		nowObj.mousedown(function() {
+			start = true;
+			nowObj.addClass("holdOn");
+		});
+		// 移动鼠标
+		nowObj.bind("mouseover",function(){
+			if (start) {
+				// console.log(nowObj.css("background-color"));
+				if (nowObj.css("background-color")=="rgb(195, 190, 212)") {
+					errorWay(nowObj);
+					setTimeout(function() {
+						nowObj.trigger("mouseup");
+					},400);
+				}else{
+					nowObj.addClass("holdOn");
+					nowObj.children("font").addClass("fontHover");
+				}
+			}
+		});
+		// 鼠标离开
+		nowObj.mouseleave(function() {
+			if (start) {
+				pre = nowObj;
+				nowObj.css("background-color","#C3BED4");
+				nowObj.children("font").removeClass("fontHover");
+				nowObj.children("font").addClass("fontHoldOn");
+			}
+		});
+		// 一次提交
+    	nowObj.mouseup(function (argument) {
+    		start = false;
+    		unHoldOnAll();
+    	});
+	});
+	// 一次提交的效果
+	function unHoldOnAll(argument) {
+		$(".tube").each(function(){
+			$(this).removeClass("holdOn");
+			$(this).removeClass("errorWay");
+			$(this).css("background-color","");
+		});
+		$("font").each(function(){
+			$(this).removeClass("fontHoldOn");
+			$(this).removeClass("fontHover");
+			$(this).css("color","");
+		});
+	}
+	function errorWay(nowObj) {
+		$(nowObj).removeClass("holdOn");
+		$(nowObj).css("background-color","");
+		$(nowObj).addClass("errorWay");
+	}
+	function holdOn(nowObj) {
+		$(nowObj).addClass("holdOn");
+	}
+</script>
+</html>

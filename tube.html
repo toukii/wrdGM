@@ -7,31 +7,31 @@
 <body>
 <div id="tubes" class="content">
 	<div class="row">
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
 	</div>
 	<div class="clearb"></div>
 	<div class="row">
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
 	</div>
 	<div class="clearb"></div>
 	<div class="row">
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
 	</div>
 	<div class="clearb"></div>
 	<div class="row">
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
-		<div class="tube">a</div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
+		<div class="tube"><img width="50px" height="50px" src="github.png"></div>
 	</div>
 </div>
 </body>
@@ -50,14 +50,49 @@
     	start = false;
     	upHoldOnAll();
     });
+    $(".tube img").each(function(){
+		var nowObj = $(this);
+		var parent = nowObj.parent(".tube");
+		nowObj.mousedown(function() {
+			start = true;
+			parent.addClass("holdOn");
+		});
+		nowObj.bind("mouseover",function(){
+			if (start) {
+				if (parent.css("background-color")=="rgb(0, 0, 255)") {
+					errorWay(parent);
+					setTimeout(function() {
+						nowObj.trigger("mouseup");
+					},400);
+					// $(pre).css("background-color","green");
+				}else{
+					parent.addClass("holdOn");
+				}
+			}
+		});
+		nowObj.mouseleave(function() {
+			if (start) {
+				// pre = parent;
+				parent.css("background-color","blue");
+			}
+		});
+    	nowObj.mouseup(function (argument) {
+    		start = false;
+    		upHoldOnAll();
+    	});
+	});
+
     $(".tube").each(function(){
 		var nowObj = $(this);
 		nowObj.bind("selectstart",function(){return false;}); 
 		nowObj.mousedown(function() {
 			start = true;
 			nowObj.addClass("holdOn");
+			setTimeout(function() {
+				nowObj.css("background-color","blue");
+			},200);
 		});
-		nowObj.bind("mouseover",function(){
+		/*nowObj.bind("mouseover",function(){
 			if (start) {
 				if (nowObj.css("background-color")=="rgb(0, 0, 255)") {
 					errorWay(nowObj);
@@ -66,18 +101,15 @@
 					nowObj.addClass("holdOn");
 				}
 			}
-		});
+		});*/
 		nowObj.mouseleave(function() {
 			if (start) {
 				pre = nowObj;
-				nowObj.css("background-color","blue");
+				// nowObj.css("background-color","blue");
 			}
 		});
     	nowObj.mouseup(function (argument) {
     		start = false;
-    		// setTimeout(function() {
-    			
-    		// },200);
     		upHoldOnAll();
     	});
 	});
