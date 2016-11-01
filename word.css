@@ -1,12 +1,58 @@
+/*div{
+	border-width: 2px;
+	border-style: solid;
+}*/
+
+.header{
+	position: relative;
+	border-color: blue;
+	height: 60px;
+}
+#logo{
+	position: absolute;
+}
+#user:hover{
+	background-color: black;
+}
+#user{
+	position: absolute;
+	top: 37px;
+	right: 1px;
+	align:right;
+}
+.content{
+	position: relative;
+	height: 550px;
+	border-color: red;
+}
+#left{
+	position: absolute;
+	width: 68%;
+	right: 50px;
+	height: 550px;
+}
+#right{
+	/*left: 60%;*/
+	width: 30%;
+	/*padding: 0px;*/
+	right: 2px;
+	position: absolute;
+	height: 550px;
+}
+.footer{
+	border-color: green;
+	height: 60px;
+}
+
 body{
 	position: relative;
 	background-color: #ecf0f1;
 }
-.content{
+/*.content{
 	position: absolute;
 	right: 40%;
 	text-align: center;
-}
+}*/
 .row{
 	position: relative;
 }
@@ -24,6 +70,12 @@ body{
 	position: relative;
 	font-size:350%;
 	font-weight: 500;
+	font-family: Georgia;
+}
+div font{
+	position: relative;
+	font-size:150%;
+	font-weight: 450;
 	font-family: Georgia;
 }
 .fontHoldOn{
