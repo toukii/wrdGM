@@ -90,7 +90,22 @@
 	$("html").mouseup(function() {
     	start = false;
     	if (word !== null && word !== undefined && word.length > 1) { 
-			$("#word").append("<p>"+word+"__"+poss+"</p>");
+			
+			$.ajax({
+                url:"/word",
+                data:{poss:poss},
+                async:true,
+                cache:false,
+                type:"POST",
+                dataType:"json",
+                success:function(result){ 
+                    if(result){
+                    	$("#word").append("<p>"+result+"</p>");
+                    }else{
+
+                    }
+                }
+            });
     	}
     	$("#current").text("");
 		word = "";
