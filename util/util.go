@@ -49,3 +49,16 @@ func abs(i, j int) int {
 	}
 	return -v
 }
+
+func BenchChckPos4(poss ...int)  bool{
+	l:=len(poss)
+	if l<=1 {
+		return true
+	}
+	for i := 1; i < l; i++ {
+		if !ChckPos4(poss[i-1],poss[i]) {
+			return false
+		}
+	}
+	return true
+}

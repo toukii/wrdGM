@@ -56,17 +56,24 @@ func chck(ctx *macaron.Context) {
 	possRaw := ctx.Query("poss")
 	poss := strings.Split(possRaw, ",")
 	words := ""
+	pos:=0
+	prePos:=1
 	for i := 0; i < len(poss)-1; i++ {
 		it := poss[i]
-		pos, err := strconv.ParseInt(it, 10, 16)
+		posInt64, err := strconv.ParseInt(it, 10, 16)
 		if goutils.CheckErr(err) {
 			ctx.JSON(302, err.Error())
+			return
 		}
+		pos = int(posInt64)
 		if i > 0 {
-			if !util.ChckPos4(i-1, i) {
+			if !util.ChckPos4(prePos, pos) {
+				fmt.Println(possRaw)
 				ctx.JSON(303, "pos error")
+				return
 			}
 		}
+		prePos = pos
 		words += letters[pos]
 	}
 	fmt.Println(words)
