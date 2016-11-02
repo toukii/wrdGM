@@ -25,6 +25,20 @@
 	height: 550px;
 	border-color: red;
 }
+.banner{
+	position: relative;
+	height: 50px;
+	width: 60%;
+	left: 25%;
+	margin-bottom: 20px;
+}
+.banner font{
+	position: relative;
+	font-size:300%;
+	font-weight: 500;
+	font-family: Georgia;
+	color: #333333;
+}
 #left{
 	position: absolute;
 	width: 68%;
@@ -48,11 +62,7 @@ body{
 	position: relative;
 	background-color: #ecf0f1;
 }
-/*.content{
-	position: absolute;
-	right: 40%;
-	text-align: center;
-}*/
+
 .row{
 	position: relative;
 }
@@ -72,10 +82,11 @@ body{
 	font-weight: 500;
 	font-family: Georgia;
 }
+
 div font{
 	position: relative;
-	font-size:150%;
-	font-weight: 450;
+	font-size:50%;
+	font-weight: 250;
 	font-family: Georgia;
 }
 .fontHoldOn{

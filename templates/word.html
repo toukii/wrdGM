@@ -11,11 +11,27 @@
 	<div id="logo"><img width="30px" height="30px" src="https://gocn.io/uploads/avatar/000/00/04/80_avatar_max.jpg?rand=1746"></div>
 	<div id="user">{{.UserName}}</div>
 </div>
-<!-- <div class="clearb"></div> -->
+<div class="banner">
+	<font id="current"></font>
+</div>
 <div class="content">
-	<div id="left">
+
 <!-- left content start -->
-<div id="tubes" class="content">
+<div id="left">
+	<div class="row">
+		{{range $i,$v := .seq}}
+			{{if mod4 $i}}
+	</div>
+	<!-- end row -->
+	<div class="clearb"></div>
+	<!-- start row -->
+	<div class="row">
+			{{end}}
+		<div class="tube"><font pos="{{$i}}">{{$v}}</font></div>
+		{{end}}
+	</div>
+
+	<!-- 
 	<div class="row">
 		<div class="tube"><font>A</font></div>
 		<div class="tube"><font>a</font></div>
@@ -42,12 +58,14 @@
 		<div class="tube"><font>X</font></div>
 		<div class="tube"><font>z</font></div>
 		<div class="tube"><font>K</font></div>
-	</div>
+	</div> -->
 </div>
 <!-- left content end -->
-	</div>
+
 	<div id="right">
-		<font id="word"></font>
+		<button id="clear">CLEAR</button>
+		<font id="word"></font><p></p>
+		<font id="poss"></font>
 	</div>
 </div>
 <div class="footer">footer</div>
@@ -60,6 +78,7 @@
 	var start = false;
 	var pre = null;
 	var word = "";
+	var poss = "";
 	for(i in document.images){
 		document.images[i].ondragstart=function() {
 			return false;
@@ -70,9 +89,12 @@
     // 一次提交
 	$("html").mouseup(function() {
     	start = false;
-		$("#word").text(word);
-		console.log("html:"+word);
+    	if (word !== null && word !== undefined && word.length > 1) { 
+			$("#word").append("<p>"+word+"__"+poss+"</p>");
+    	}
+    	$("#current").text("");
 		word = "";
+		poss = "";
     	unHoldOnAll();
     });
 
@@ -84,9 +106,10 @@
 			start = true;
 			nowObj.addClass("holdOn");
 		});
-		// 移动鼠标
-		nowObj.bind("mouseover",function(){
+		// 鼠标进入
+		nowObj.mouseenter(function(){
 			if (start) {
+				$("#current").append(nowObj.children("font").text());
 				// console.log(nowObj.css("background-color"));
 				if (nowObj.css("background-color")=="rgb(195, 190, 212)") {
 					errorWay(nowObj);
@@ -107,17 +130,18 @@
 				nowObj.children("font").removeClass("fontHover");
 				nowObj.children("font").addClass("fontHoldOn");
 				word += nowObj.children("font").text();
+				poss += nowObj.children("font").attr("pos")+",";
 			}
 		});
 		// 一次提交
     	nowObj.mouseup(function (argument) {
     		start = false;
     		word += nowObj.children("font").text();
-    		// $("#word").text(word);
-    		// console.log("tube:"+word);
-    		// word = "";
-    		// unHoldOnAll();
+    		poss += nowObj.children("font").attr("pos")+",";
     	});
+	});
+	$("#clear").click(function() {
+		$("#word").text("");
 	});
 	// 一次提交的效果
 	function unHoldOnAll(argument) {
@@ -133,6 +157,7 @@
 		});
 	}
 	function errorWay(nowObj) {
+		word = "";
 		$(nowObj).removeClass("holdOn");
 		$(nowObj).css("background-color","");
 		$(nowObj).addClass("errorWay");
