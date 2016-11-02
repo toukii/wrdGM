@@ -68,7 +68,7 @@
 		<font id="poss"></font>
 	</div>
 </div>
-<div class="footer">footer</div>
+<!-- <div class="footer">footer</div> -->
 
 
 </body>
@@ -104,6 +104,7 @@
 		nowObj.bind("selectstart",function(){return false;}); 
 		nowObj.mousedown(function() {
 			start = true;
+			$("#current").append(nowObj.children("font").text());
 			nowObj.addClass("holdOn");
 		});
 		// 鼠标进入
