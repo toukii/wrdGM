@@ -1,25 +1,40 @@
-image: daocloud/ci-golang:1.4
-services:
-    # mongodb
-    # - mysql
-    # - redis
+version: 2.0
 
-env:
-    - GOPATH = /gopath
-install:
-    - echo "This is an install segment"
-    - sudo apt-get -y install curl
+test:
+    image:
+        daocloud/ci-golang:1.4
 
-before_script:
-    - mkdir -p gopath
-    - export GOPATH=/gopath
-    - export PATH=$GOPATH/bin:$PATH
-    - go env
-    - go get github.com/toukii/wrdGM
+    services:
+        # redis
 
-script:
-    # - ping -c 2 mongodb
-    # - ping -c 2 mysql
-    # - ping -c 2 redis
-    - go test -v github.com/toukii/wrdGM/util
-    - cd $GOPATH/src/github.com/toukii/wrdGM/util && go test -bench="."
+    # using default docker-link env
+    env:
+        - GOPATH = "/gopath"
+
+    install:
+        #- sudo apt-get update
+
+    before_script:
+        - mkdir -p /gopath/src/github.com/toukii/wrdGM
+        - mv ./* /gopath/src/github.com/toukii/wrdGM
+
+    script:
+        - export GOPATH=/gopath
+        - go get -u github.com/toukii/wrdGM
+        - go test -v github.com/toukii/wrdGM/util
+        - cd $GOPATH/src/github.com/toukii/wrdGM/util && go test -bench="."
+
+build:
+    lite_image:
+        compile:
+            dockerfile_path: Dockerfile
+            build_dir: /
+            cache: true
+
+        extract:
+            - /go/bin/app
+
+        package:
+              dockerfile_path: Dockerfile.sec
+              build_dir: /
+              cache: true
