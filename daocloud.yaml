@@ -1,0 +1,24 @@
+image: daocloud/ci-golang:1.4
+services:
+    # mongodb
+    # - mysql
+    # - redis
+
+env:
+    - GOPATH = /gopath
+install:
+    - echo "This is an install segment"
+    - sudo apt-get -y install curl
+
+before_script:
+    - mkdir -p gopath
+    - export GOPATH=/gopath
+    - export PATH=$GOPATH/bin:$PATH
+    - go env
+    - go get github.com/toukii/wrdGM
+
+script:
+    # - ping -c 2 mongodb
+    # - ping -c 2 mysql
+    # - ping -c 2 redis
+    - go test -v github.com/toukii/wrdGM/util
