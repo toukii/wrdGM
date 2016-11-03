@@ -22,3 +22,4 @@ script:
     # - ping -c 2 mysql
     # - ping -c 2 redis
     - go test -v github.com/toukii/wrdGM/util
+    - cd $GOPATH/src/github.com/toukii/wrdGM/util && go test -bench="."

@@ -42,7 +42,6 @@ func tube(ctx *macaron.Context) {
 }
 
 func word(ctx *macaron.Context) {
-	fmt.Println("word")
 	data := make(map[string]interface{})
 	data["UserName"] = "shaalx"
 	data["seq"] = letters
@@ -51,7 +50,7 @@ func word(ctx *macaron.Context) {
 
 func chck(ctx *macaron.Context) {
 	possRaw := ctx.Query("poss")
-	word, ok := util.SeqWord(possRaw, letters)
+	word, ok := util.SeqWord4(possRaw, letters)
 	if ok {
 		fmt.Println(word)
 		ctx.JSON(200, word)
