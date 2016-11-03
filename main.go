@@ -3,11 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/go-macaron/macaron"
-	"github.com/toukii/goutils"
 	"github.com/toukii/wrdGM/util"
 	"html/template"
-	"strconv"
-	"strings"
 )
 
 var (
@@ -54,30 +51,13 @@ func word(ctx *macaron.Context) {
 
 func chck(ctx *macaron.Context) {
 	possRaw := ctx.Query("poss")
-	poss := strings.Split(possRaw, ",")
-	words := ""
-	pos:=0
-	prePos:=1
-	for i := 0; i < len(poss)-1; i++ {
-		it := poss[i]
-		posInt64, err := strconv.ParseInt(it, 10, 16)
-		if goutils.CheckErr(err) {
-			ctx.JSON(302, err.Error())
-			return
-		}
-		pos = int(posInt64)
-		if i > 0 {
-			if !util.ChckPos4(prePos, pos) {
-				fmt.Println(possRaw)
-				ctx.JSON(303, "pos error")
-				return
-			}
-		}
-		prePos = pos
-		words += letters[pos]
+	word, ok := util.SeqWord(possRaw, letters)
+	if ok {
+		fmt.Println(word)
+		ctx.JSON(200, word)
+	} else {
+		ctx.JSON(207, "")
 	}
-	fmt.Println(words)
-	ctx.JSON(200, words)
 }
 
 func mod4(i int) bool {

@@ -10,6 +10,7 @@
 }
 #logo{
 	position: absolute;
+	left: 20%;
 }
 /*#user:hover{*/
 /*	background-color: black;*/
@@ -17,7 +18,7 @@
 #user{
 	position: absolute;
 	top: 17px;
-	right: 1px;
+	right: 20%;
 	align:right;
 }
 .content{
@@ -73,7 +74,7 @@ body{
 	height: 70px;
 	width: 70px;
 	text-align: center;
-	margin:10px 10px 10px 10px;
+	margin:8px 8px 8px 8px;
 }
 
 .tube font{
