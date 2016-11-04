@@ -25,62 +25,62 @@ func init() {
 	}
 }
 
-func TestSeqWord(t *testing.T) {
+func TestCWord(t *testing.T) {
 	possRaw := ""
-	word, ok := SeqWord(possRaw, letters, 4)
+	word, ok := CWord(possRaw, letters, 4)
 	if ok {
 		t.Error(possRaw, word, ok)
 	}
 
 	possRaw = "0,1,2,3,"
-	word, ok = SeqWord(possRaw, letters, 4)
+	word, ok = CWord(possRaw, letters, 4)
 	if !ok || "AaeH" != word {
 		t.Error(possRaw, word, ok)
 	}
 	possRaw = "0,1,2,3,,"
-	word, ok = SeqWord(possRaw, letters, 4)
+	word, ok = CWord(possRaw, letters, 4)
 	if !ok || "AaeH" != word {
 		t.Error(possRaw, word, ok)
 	}
 	possRaw = "0,1,2,,3,"
-	word, ok = SeqWord(possRaw, letters, 4)
+	word, ok = CWord(possRaw, letters, 4)
 	if !ok || "AaeH" != word {
 		t.Error(possRaw, word, ok)
 	}
 	possRaw = ",0,1,2,,3,"
-	word, ok = SeqWord(possRaw, letters, 4)
+	word, ok = CWord(possRaw, letters, 4)
 	if !ok || "AaeH" != word {
 		t.Error(possRaw, word, ok)
 	}
 	possRaw = ",0,1,2,3,7,6,5,4,8,9,10,11,15,14,13,12,"
-	word, ok = SeqWord(possRaw, letters, 4)
+	word, ok = CWord(possRaw, letters, 4)
 	if !ok || "AaeHmVtYuIOqlXzK" != word {
 		t.Error(possRaw, word, ok)
 	}
 
 	possRaw = ",0,1,2,3,7,11,15,14,13,12,8,4,5,10,6,9,"
-	word, ok = SeqWord(possRaw, letters, 4)
+	word, ok = CWord(possRaw, letters, 4)
 	if !ok || "AaeHmqlXzKuYtOVI" != word {
 		t.Error(possRaw, word, ok)
 	}
 	possRaw = ",0,5,10,11,15,14,13,9,12,8,4,1,6,3,7,2,"
-	word, ok = SeqWord(possRaw, letters, 4)
+	word, ok = CWord(possRaw, letters, 4)
 	if !ok || "AtOqlXzIKuYaVHme" != word {
 		t.Error(possRaw, word, ok)
 	}
 
 }
 
-func BenchmarkSeqWord(b *testing.B) {
+func BenchmarkCWord(b *testing.B) {
 	possRaw := ",0,5,10,11,15,14,13,9,12,8,4,1,6,3,7,2,"
 	for i := 0; i < b.N; i++ {
-		SeqWord(possRaw, letters, 4)
+		CWord(possRaw, letters, 4)
 	}
 }
 
-func BenchmarkSeqWord4(b *testing.B) {
+func BenchmarkCWord4(b *testing.B) {
 	possRaw := ",0,5,10,11,15,14,13,9,12,8,4,1,6,3,7,2,"
 	for i := 0; i < b.N; i++ {
-		SeqWord4(possRaw, letters)
+		CWord4(possRaw, letters)
 	}
 }

@@ -360,7 +360,7 @@ func TestChckPos4(t *testing.T) {
 		t.Error(10, 4, 4)
 	}
 
-	ok = ChckPos(10, 11,4)
+	ok = ChckPos(10, 11, 4)
 	if !ok {
 		t.Error(10, 11, 4)
 	}
@@ -372,8 +372,8 @@ func TestChckPos4(t *testing.T) {
 
 }
 
-func TestBenchChckPos4(t *testing.T)  {
-	BenchChckPos4(1,5,6,10,11)
+func TestChckPoss4(t *testing.T) {
+	ChckPoss4(1, 5, 6, 10, 11)
 }
 
 func BenchmarkChckPos_1(b *testing.B) {

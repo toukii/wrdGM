@@ -49,8 +49,8 @@ func word(ctx *macaron.Context) {
 }
 
 func chck(ctx *macaron.Context) {
-	possRaw := ctx.Query("poss")
-	word, ok := util.SeqWord4(possRaw, letters)
+	rawPoss := ctx.Query("poss")
+	word, ok := util.CWord4(rawPoss, letters)
 	if ok {
 		fmt.Println(word)
 		ctx.JSON(200, word)

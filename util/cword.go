@@ -19,14 +19,14 @@ func init() {
 	}
 }
 
-func SeqWord(possRaw string, letters []string, n int) (word string, ok bool) {
-	possRaw = strings.Trim(possRaw, ",")
-	poss := strings.Split(possRaw, ",")
+func CWord(rawPoss string, letters []string, n int) (word string, ok bool) {
+	rawPoss = strings.Trim(rawPoss, ",")
+	poss := strings.Split(rawPoss, ",")
 	pos := 0
 	prePos := 0
 	possLen := len(poss)
-	// fmt.Println(possLen, possRaw)
-	if "" == possRaw || possLen > 16 {
+	// fmt.Println(possLen, rawPoss)
+	if "" == rawPoss || possLen > 16 {
 		return
 	}
 	count := 0
@@ -55,14 +55,14 @@ func SeqWord(possRaw string, letters []string, n int) (word string, ok bool) {
 	return
 }
 
-func SeqWord4(possRaw string, letters []string) (word string, ok bool) {
-	possRaw = strings.Trim(possRaw, ",")
-	poss := strings.Split(possRaw, ",")
+func CWord4(rawPoss string, letters []string) (word string, ok bool) {
+	rawPoss = strings.Trim(rawPoss, ",")
+	poss := strings.Split(rawPoss, ",")
 	pos := 0
 	prePos := 0
 	possLen := len(poss)
-	// fmt.Println(possLen, possRaw)
-	if "" == possRaw || possLen > 16 {
+	// fmt.Println(possLen, rawPoss)
+	if "" == rawPoss || possLen > 16 {
 		return
 	}
 	count := 0
