@@ -15,7 +15,7 @@ test:
         - go get -u github.com/toukii/wrdGM
 
     before_script:
-        - /gopath/bin/wrdGM
+        - /gopath/bin/wrdGM &
 
     script:
         #- export GOPATH=/gopath
