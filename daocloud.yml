@@ -15,8 +15,8 @@ test:
         #- sudo apt-get update
 
     before_script:
-        - mkdir -p /gopath/src/github.com/toukii/wrdGM
-        - mv ./* /gopath/src/github.com/toukii/wrdGM
+        #- mkdir -p /gopath/src/github.com/toukii/wrdGM
+        #- mv ./* /gopath/src/github.com/toukii/wrdGM
 
     script:
         - export GOPATH=/gopath
