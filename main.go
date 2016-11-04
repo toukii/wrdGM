@@ -5,18 +5,17 @@ import (
 	"github.com/go-macaron/macaron"
 	"github.com/toukii/wrdGM/util"
 	"html/template"
+	"time"
 )
 
 var (
-	seq        = "AaeHYtVmuIOqKzXl"
-	letters    = make([]string, 16)
-	lettersMap = make(map[string]string)
+	sseq    = util.SSeq()
+	letters = make([]string, 16)
 )
 
 func init() {
 	for i := 0; i < 16; i++ {
-		letters[i] = string(seq[i])
-		lettersMap[fmt.Sprintf("%d", i)] = letters[i]
+		letters[i] = string(sseq[i])
 	}
 }
 
@@ -34,6 +33,7 @@ func main() {
 		m.Post("word", chck)
 		m.Combo("tube").Get(tube)
 	})
+	go ticker()
 	m.Run()
 }
 
@@ -50,13 +50,20 @@ func word(ctx *macaron.Context) {
 
 func chck(ctx *macaron.Context) {
 	rawPoss := ctx.Query("poss")
+	cword := ctx.Query("word")
 	word, ok := util.CWord4(rawPoss, letters)
-	if ok {
+	if ok && word == cword {
 		fmt.Println(word)
-		ctx.JSON(200, word)
+		ctx.JSON(200, Rslt{Word: word, Code: 200})
 	} else {
-		ctx.JSON(207, "")
+		fmt.Println(cword, " != ", word)
+		ctx.JSON(200, Rslt{Word: word, Code: 302})
 	}
+}
+
+type Rslt struct {
+	Word string
+	Code int
 }
 
 func mod4(i int) bool {
@@ -64,4 +71,16 @@ func mod4(i int) bool {
 		return false
 	}
 	return i%4 == 0
+}
+
+func ticker() {
+	tckr := time.NewTicker(10e9)
+	for {
+		<-tckr.C
+		sseq = util.SSeq()
+		for i := 0; i < 16; i++ {
+			letters[i] = string(sseq[i])
+		}
+		fmt.Println("sseq:", sseq)
+	}
 }

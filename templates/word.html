@@ -2,14 +2,17 @@
 <html>
 <head>
 	<title>word-game</title>
-	<link rel="stylesheet" type="text/css" href="word.css?v=1">
+	<link rel="stylesheet" type="text/css" href="word.css?v=2">
 	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
 <div class="header">
-	<!-- <div id="logo"><img width="30px" height="30px" src="https://gocn.io/uploads/avatar/000/00/04/80_avatar_max.jpg?rand=1746"></div>
-	<div id="user">{{.UserName}}</div> -->
+	<div id="logo">
+	<!-- <img width="30px" height="30px" src="https://gocn.io/uploads/avatar/000/00/04/80_avatar_max.jpg?rand=1746"> -->
+	</div>
+	<div id="ttl"></div>
+	<div id="user"><!-- {{.UserName}} --></div>
 </div>
 <div class="banner">
 	<font id="current"></font>
@@ -93,16 +96,19 @@
 			
 			$.ajax({
                 url:"/word",
-                data:{poss:poss},
+                data:{poss:poss,word:word},
                 async:true,
                 cache:false,
                 type:"POST",
                 dataType:"json",
                 success:function(result){ 
-                    if(result){
-                    	$("#word").append("<p>"+result+"</p>");
+                	console.log(result);
+                    if(result.Code==200){
+                    	$("#word").append("<p>"+result.Word+"</p>");
                     }else{
-
+                    	$("#ttl").text("此局已结束，请刷新页面！");
+                    	// alert("此局已结束，请刷新页面！");
+                    	// window.location.href = "/"
                     }
                 }
             });

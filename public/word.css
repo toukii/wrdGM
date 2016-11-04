@@ -12,9 +12,14 @@
 	position: absolute;
 	left: 20%;
 }
-/*#user:hover{*/
-/*	background-color: black;*/
-/*}*/
+
+#ttl{
+	width: 30%;
+	left: 30%;
+	position: absolute;
+	color: red;
+}
+
 #user{
 	position: absolute;
 	top: 17px;
