@@ -12,17 +12,16 @@ test:
         - GOPATH = "/gopath"
 
     install:
-        #- sudo apt-get update
+        - go get -u github.com/toukii/wrdGM
 
     before_script:
-        #- mkdir -p /gopath/src/github.com/toukii/wrdGM
-        #- mv ./* /gopath/src/github.com/toukii/wrdGM
+        - /gopath/bin/wrdGM
 
     script:
-        - export GOPATH=/gopath
-        - go get -u github.com/toukii/wrdGM
+        #- export GOPATH=/gopath
         - go test -v github.com/toukii/wrdGM/util
         - cd $GOPATH/src/github.com/toukii/wrdGM/util && go test -bench="."
+        - curl http://127.0.0.1:4000
 
 build:
     lite_image:
