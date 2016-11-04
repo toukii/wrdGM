@@ -15,13 +15,14 @@ test:
         - go get -u github.com/toukii/wrdGM
 
     before_script:
-        - /gopath/bin/wrdGM &
+        #- /gopath/bin/wrdGM &
 
     script:
         #- export GOPATH=/gopath
         - go test -v github.com/toukii/wrdGM/util
         - cd $GOPATH/src/github.com/toukii/wrdGM/util && go test -bench="."
-        - curl http://127.0.0.1:4000
+        - ifconfig
+        - uname -a
 
 build:
     lite_image:
