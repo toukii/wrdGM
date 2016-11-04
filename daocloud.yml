@@ -33,6 +33,7 @@ build:
 
         extract:
             - /go/bin/app
+            - $GOPATH/src/github.com/toukii/wrdGM/*
 
         package:
               dockerfile_path: Dockerfile.sec
