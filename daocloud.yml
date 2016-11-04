@@ -29,7 +29,7 @@ build:
         compile:
             dockerfile_path: Dockerfile
             build_dir: /
-            cache: true
+            cache: false
 
         extract:
             - /go/bin/app
@@ -37,4 +37,4 @@ build:
         package:
               dockerfile_path: Dockerfile.sec
               build_dir: /
-              cache: true
+              cache: false
