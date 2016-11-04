@@ -78,6 +78,8 @@ func ticker() {
 	for {
 		<-tckr.C
 		sseq = util.SSeq()
+
+		util.SWords(sseq)
 		for i := 0; i < 16; i++ {
 			letters[i] = string(sseq[i])
 		}
