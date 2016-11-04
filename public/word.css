@@ -20,12 +20,19 @@
 	color: red;
 }
 
-#user{
+#score{
 	position: absolute;
 	top: 17px;
-	right: 20%;
-	align:right;
+	right: 25%;
 }
+score-font{
+	position: relative;
+	font-size:350%;
+	font-weight: 500;
+	color: lightblue;
+	font-family: Georgia;
+}
+
 .content{
 	position: relative;
 	height: 450px;

@@ -11,6 +11,7 @@ import (
 var (
 	sseq    = util.SSeq()
 	letters = make([]string, 16)
+	// swords *util.Resultwords
 )
 
 func init() {
@@ -54,15 +55,23 @@ func chck(ctx *macaron.Context) {
 	word, ok := util.CWord4(rawPoss, letters)
 	if ok && word == cword {
 		fmt.Println(word)
-		ctx.JSON(200, Rslt{Word: word, Code: 200})
+		chckRlt:=util.ChckCWord(word)
+		if chckRlt.Exist {
+			ctx.JSON(200, Rslt{Word: word,Score:chckRlt.Score, Code: 200})	
+		}else{
+			fmt.Println("wrong word")
+			ctx.JSON(200, Rslt{ Code: 301})
+		}
 	} else {
 		fmt.Println(cword, " != ", word)
-		ctx.JSON(200, Rslt{Word: word, Code: 302})
+		ctx.JSON(200, Rslt{ Code: 302})
 	}
 }
 
 type Rslt struct {
+	// Word string
 	Word string
+	Score int
 	Code int
 }
 
@@ -74,15 +83,14 @@ func mod4(i int) bool {
 }
 
 func ticker() {
-	tckr := time.NewTicker(10e9)
+	tckr := time.NewTicker(90e9)
 	for {
-		<-tckr.C
-		sseq = util.SSeq()
-
-		util.SWords(sseq)
+		fmt.Println("sseq:", sseq)
+		_ = util.SWords(sseq)
 		for i := 0; i < 16; i++ {
 			letters[i] = string(sseq[i])
 		}
-		fmt.Println("sseq:", sseq)
+		<-tckr.C
+		sseq = util.SSeq()
 	}
 }

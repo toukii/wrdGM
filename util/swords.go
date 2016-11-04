@@ -37,6 +37,7 @@ var (
 	ciku        *Ciku       //单词库，预加载
 	result      chan string // 生成单词后放入该通道
 	resultwords Resultwords //结果
+	graph *Graph // 无向图
 )
 
 type Words map[string]int
@@ -95,6 +96,7 @@ func initAll() {
 	vis = *initVis()
 	result = make(chan string, 1)
 	ciku, _ = FromJson("word_json.json")
+	graph = initGraphFromJson("graph.json")
 }
 
 // 初始化访问标志   （其实没有必要）
@@ -123,8 +125,8 @@ func (t Graph) dfs(e Edge, deep int, s string) {
 
 // 读取result单词通道，最后返回得到的单词
 // q ：结束命令，若q中有数据，表示可以return了
-func readChan(q chan bool) *(Words) {
-	m := make(Words, 500)
+func readChan(q chan struct{}) *(Words) {
+	m := make(Words)
 	quit := false
 	for {
 		select {
@@ -132,7 +134,7 @@ func readChan(q chan bool) *(Words) {
 			quit = true
 		case r := <-result:
 			fmt.Printf("%16s", r)
-			m[r] = 30
+			m[r] = 10*len(r)
 		}
 		if quit {
 			break
@@ -166,20 +168,21 @@ func resultFromJson(in string) {
 
 // 开始
 func start(sequence string) {
-	graph := initGraphFromJson("graph.json")
-	for {
 		resultwords.Sequence = sequence
 		graph.inti_graph_with_sequence(sequence)
 		one_finding(graph)
-	}
 }
 
+var(
+	t1,t2 time.Time
+	qb chan struct{}
+)
 // 做一次序列的查找
 func one_finding(graph *Graph) {
 	var e Edge
 	var s string
-	qb := make(chan bool, 1)
-	t1 := time.Now()
+	qb = make(chan struct{}, 1)
+	t1 = time.Now()
 	var m Words
 	go func(m *Words) {
 		m = readChan(qb)
@@ -195,13 +198,30 @@ func one_finding(graph *Graph) {
 		}
 	}
 	time.Sleep(1)
-	qb <- true
+	qb <- struct{}{}
 	time.Sleep(1)
-	t2 := time.Now()
+	t2 = time.Now()
 	fmt.Println(t2.Sub(t1))
 }
 
-func SWords(sseq string) {
+func SWords(sseq string) *Resultwords {
 	initAll()
 	start(sseq)
+	return &resultwords
+}
+
+type ChckRlt struct {
+	Exist bool
+	Score int
+}
+func ChckCWord(cword string)(chckRlt ChckRlt)  {
+	if resultwords.Words == nil {
+		return
+	}
+	score,exist:=(*resultwords.Words)[cword]
+	if exist {
+		chckRlt.Exist = true
+		chckRlt.Score = score
+	}
+	return
 }

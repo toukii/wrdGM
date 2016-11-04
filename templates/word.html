@@ -12,7 +12,7 @@
 	<!-- <img width="30px" height="30px" src="https://gocn.io/uploads/avatar/000/00/04/80_avatar_max.jpg?rand=1746"> -->
 	</div>
 	<div id="ttl"></div>
-	<div id="user"><!-- {{.UserName}} --></div>
+	<div><score-font id="score"></score-font></div>
 </div>
 <div class="banner">
 	<font id="current"></font>
@@ -66,7 +66,7 @@
 <!-- left content end -->
 
 	<div id="right">
-		<button id="clear">CLEAR</button>
+		<!--<button id="clear">CLEAR</button>-->
 		<font id="word"></font><p></p>
 		<font id="poss"></font>
 	</div>
@@ -75,13 +75,14 @@
 
 
 </body>
-<script type="text/javascript" src="https://www.qiniu.com/wp-content/themes/Earthshaker-1/js/jquery.js"></script>
+<script type="text/javascript" src="http://7xku3c.com1.z0.glb.clouddn.com/jquery.min.js"></script>
 
 <script type="text/javascript">
 	var start = false;
 	var pre = null;
 	var word = "";
 	var poss = "";
+	var score = 0;
 	for(i in document.images){
 		document.images[i].ondragstart=function() {
 			return false;
@@ -104,17 +105,24 @@
                 success:function(result){ 
                 	console.log(result);
                     if(result.Code==200){
-                    	$("#word").append("<p>"+result.Word+"</p>");
+						score += result.Score;
+                    	$("#score").text(score);
+						$("#word").append("<p>"+word+" : "+result.Score+"</p>");
+						$("#ttl").text("");
                     }else{
-                    	$("#ttl").text("此局已结束，请刷新页面！");
-                    	// alert("此局已结束，请刷新页面！");
-                    	// window.location.href = "/"
-                    }
+						if(result.Code==302){
+                    		$("#ttl").text("此局已结束，请刷新页面！");
+                    		// alert("此局已结束，请刷新页面！");
+                    		// window.location.href = "/"
+						}else{	
+							$("#ttl").text(word+" 未收录！");
+						}
+					}
+					word = "";
                 }
             });
     	}
     	$("#current").text("");
-		word = "";
 		poss = "";
     	unHoldOnAll();
     });
