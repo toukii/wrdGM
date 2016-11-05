@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	sseq    = util.SSeq()
+	sseq    = util.SSeq(16)
 	letters = make([]string, 16)
 	// swords *util.Resultwords
 )
@@ -83,7 +83,7 @@ func mod4(i int) bool {
 }
 
 func ticker() {
-	tckr := time.NewTicker(90e9)
+	tckr := time.NewTicker(120e9)
 	for {
 		fmt.Println("sseq:", sseq)
 		_ = util.SWords(sseq)
@@ -91,6 +91,6 @@ func ticker() {
 			letters[i] = string(sseq[i])
 		}
 		<-tckr.C
-		sseq = util.SSeq()
+		sseq = util.SSeq(16)
 	}
 }

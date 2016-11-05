@@ -40,6 +40,6 @@ func BenchmarkSearchSeq2(b *testing.B) {
 }
 
 func TestSSeq(t *testing.T) {
-	sseq := SSeq()
+	sseq := SSeq(16)
 	t.Log(sseq)
 }

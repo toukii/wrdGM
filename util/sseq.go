@@ -63,12 +63,18 @@ func searchSeq(v int) string {
 }
 
 // 随机数数组:每一项对应一个字母序列的索引(查找得到)
-func SSeq() string {
-	sseqs := make([]string, 0, 16)
-	n := perSlice[25]
-	for i := 0; i < 16; i++ {
+func SSeq(sseqLen int) string {
+	filter:=make(map[string]struct{})
+	sseqs := make([]string, 0, sseqLen)
+	n := perSlice[len(perSlice)-1]
+	for i := 0; i < sseqLen; i++ {
 		per := rander.Intn(n)
 		seq := searchSeq(per)
+		if _,ok:=filter[seq];ok {
+			i--
+			continue
+		}
+		filter[seq]=struct{}{}
 		if seq != "" {
 			sseqs = append(sseqs, seq)
 		}
