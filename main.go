@@ -30,6 +30,7 @@ func main() {
 		})
 	})
 	go ticker()
+	macaron.Env = macaron.PROD
 	m.Run()
 }
 
