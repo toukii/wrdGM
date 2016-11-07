@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -40,6 +41,9 @@ func BenchmarkSearchSeq2(b *testing.B) {
 }
 
 func TestSSeq(t *testing.T) {
-	sseq := SSeq(16)
-	t.Log(sseq)
+	for i := 0; i < 50; i++ {
+		sseq := SSeq(16)
+		fmt.Println(sseq)
+		SWords(sseq)
+	}
 }

@@ -82,10 +82,11 @@ func ticker() {
 	tckr := time.NewTicker(120e9)
 	for {
 		for {
-			sseq = util.SSeq(16)
-			fmt.Println("sseq:", sseq)
-			rlt := util.SWords(sseq)
-			if rlt.Num >= 30 {
+			sseq1 := util.SSeq(16)
+			fmt.Println("sseq:", sseq1)
+			rlt := util.SWords(sseq1)
+			if rlt.Num >= 50 {
+				sseq = sseq1
 				break
 			}
 		}
