@@ -37,17 +37,17 @@ var (
 	ciku        *Ciku       //单词库，预加载
 	result      chan string // 生成单词后放入该通道
 	resultwords Resultwords //结果
-	graph *Graph // 无向图
+	graph       *Graph      // 无向图
 )
 
 type Words map[string]int
 
 type Resultwords struct { //玩家游戏结果数据
-	Sequence string //字母序列
-	Score    int    //得分
-	Num      int    //单词个数
-	ID       string //ID
-	Words    *Words //找到的单词
+	Sequence []string //字母序列
+	Score    int      //得分
+	Num      int      //单词个数
+	ID       string   //ID
+	Words    *Words   //找到的单词
 }
 
 // 将无向图写出到out(.json) 中
@@ -73,7 +73,7 @@ func initGraphFromJson(in string) *Graph {
 }
 
 // 使用字母序列初始化无向图
-func (t *Graph) inti_graph_with_sequence(sequence string) {
+func (t *Graph) inti_graph_with_sequence(sequence []string) {
 	for i := 0; i < N; i++ {
 		for j := 0; j < N; j++ {
 			index := i*N + j
@@ -134,7 +134,7 @@ func readChan(q chan struct{}) *(Words) {
 			quit = true
 		case r := <-result:
 			fmt.Printf("%16s", r)
-			m[r] = 10*len(r)
+			m[r] = 10 * len(r)
 		}
 		if quit {
 			break
@@ -167,16 +167,17 @@ func resultFromJson(in string) {
 }
 
 // 开始
-func start(sequence string) {
-		resultwords.Sequence = sequence
-		graph.inti_graph_with_sequence(sequence)
-		one_finding(graph)
+func start(sequence []string) {
+	resultwords.Sequence = sequence
+	graph.inti_graph_with_sequence(sequence)
+	one_finding(graph)
 }
 
-var(
-	t1,t2 time.Time
-	qb chan struct{}
+var (
+	t1, t2 time.Time
+	qb     chan struct{}
 )
+
 // 做一次序列的查找
 func one_finding(graph *Graph) {
 	var e Edge
@@ -204,7 +205,7 @@ func one_finding(graph *Graph) {
 	fmt.Println(t2.Sub(t1))
 }
 
-func SWords(sseq string) *Resultwords {
+func SWords(sseq []string) *Resultwords {
 	initAll()
 	start(sseq)
 	return &resultwords
@@ -214,11 +215,12 @@ type ChckRlt struct {
 	Exist bool
 	Score int
 }
-func ChckCWord(cword string)(chckRlt ChckRlt)  {
+
+func ChckCWord(cword string) (chckRlt ChckRlt) {
 	if resultwords.Words == nil {
 		return
 	}
-	score,exist:=(*resultwords.Words)[cword]
+	score, exist := (*resultwords.Words)[cword]
 	if exist {
 		chckRlt.Exist = true
 		chckRlt.Score = score

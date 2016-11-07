@@ -6,7 +6,6 @@ package util
 import (
 	"math/rand"
 	"sort"
-	"strings"
 	"time"
 )
 
@@ -17,8 +16,10 @@ var (
 		"d": 389, "u": 280, "c": 268, "f": 256, "m": 244,
 		"w": 214, "y": 202, "g": 187, "p": 186, "b": 156,
 		"v": 102, "k": 60, "x": 16, "j": 10, "q": 9, "z": 6,
+		"er": 222, "in": 198, "on": 174, "ti": 171, "at": 157,
+		"re": 157, "te": 154, "en": 150, "le": 132, "an": 130,
 	}
-	seqs     = []string{"e", "t", "a", "o", "i", "n", "s", "r", "h", "l", "d", "u", "c", "f", "m", "w", "y", "g", "p", "b", "v", "k", "x", "j", "q", "z"}
+	seqs     = []string{"e", "t", "a", "o", "i", "n", "s", "r", "h", "l", "d", "u", "c", "f", "m", "w", "y", "g", "p", "b", "v", "k", "x", "j", "q", "z", "er", "in", "on", "ti", "at", "re", "te", "en", "le", "an"}
 	perSlice []int
 	locSeq   []string
 
@@ -26,8 +27,8 @@ var (
 )
 
 func init() {
-	perSlice = make([]int, 0, 26)
-	locSeq = make([]string, 0, 26)
+	perSlice = make([]int, 0, 36)
+	locSeq = make([]string, 0, 36)
 	perSum := 0
 	seqsLen := len(seqs)
 	for i := 0; i < seqsLen; i++ {
@@ -63,21 +64,21 @@ func searchSeq(v int) string {
 }
 
 // 随机数数组:每一项对应一个字母序列的索引(查找得到)
-func SSeq(sseqLen int) string {
-	filter:=make(map[string]struct{})
+func SSeq(sseqLen int) []string {
+	filter := make(map[string]struct{})
 	sseqs := make([]string, 0, sseqLen)
 	n := perSlice[len(perSlice)-1]
 	for i := 0; i < sseqLen; i++ {
 		per := rander.Intn(n)
 		seq := searchSeq(per)
-		if _,ok:=filter[seq];ok {
+		if _, ok := filter[seq]; ok {
 			i--
 			continue
 		}
-		filter[seq]=struct{}{}
+		filter[seq] = struct{}{}
 		if seq != "" {
 			sseqs = append(sseqs, seq)
 		}
 	}
-	return strings.Join(sseqs, "")
+	return sseqs
 }
