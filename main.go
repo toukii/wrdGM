@@ -85,7 +85,7 @@ func ticker() {
 			sseq1 := util.SSeq(16)
 			fmt.Println("sseq:", sseq1)
 			rlt := util.SWords(sseq1)
-			if rlt.Num >= 50 {
+			if rlt.Num >= 35 {
 				sseq = sseq1
 				break
 			}

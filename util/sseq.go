@@ -6,6 +6,7 @@ package util
 import (
 	"math/rand"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -68,17 +69,29 @@ func SSeq(sseqLen int) []string {
 	filter := make(map[string]struct{})
 	sseqs := make([]string, 0, sseqLen)
 	n := perSlice[len(perSlice)-1]
+	repeat := 0
 	for i := 0; i < sseqLen; i++ {
 		per := rander.Intn(n)
 		seq := searchSeq(per)
 		if _, ok := filter[seq]; ok {
-			i--
-			continue
+			repeat++
+			if repeat > 3 {
+				i--
+				continue
+			}
 		}
 		filter[seq] = struct{}{}
+		// seq = strings.ToUpper(seq)
 		if seq != "" {
 			sseqs = append(sseqs, seq)
 		}
+	}
+	for i := 0; i < 5; i++ {
+		index := rander.Intn(15)
+		if len(sseqs[index]) > 1 {
+			continue
+		}
+		sseqs[index] = strings.ToUpper(sseqs[index])
 	}
 	return sseqs
 }

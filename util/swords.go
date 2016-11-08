@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -77,7 +78,7 @@ func (t *Graph) inti_graph_with_sequence(sequence []string) {
 	for i := 0; i < N; i++ {
 		for j := 0; j < N; j++ {
 			index := i*N + j
-			t[i][j].V = string(sequence[index])
+			t[i][j].V = strings.ToLower(string(sequence[index]))
 		}
 	}
 }
@@ -220,7 +221,7 @@ func ChckCWord(cword string) (chckRlt ChckRlt) {
 	if resultwords.Words == nil {
 		return
 	}
-	score, exist := (*resultwords.Words)[cword]
+	score, exist := (*resultwords.Words)[strings.ToLower(cword)]
 	if exist {
 		chckRlt.Exist = true
 		chckRlt.Score = score
